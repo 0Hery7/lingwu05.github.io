@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.13.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="C程序的生命历程 一个c语言程序从编译到可执行文件的生成经历了下面几个过程：  预编译 编译 汇编 链接  预编译 通俗而言，预编译就是处理c程序中含有#的语句，例如#include、#define、#if 等。使用命令gcc -E a.c -o a.i 对源文件a.c进行预编译操作，生成预处理文件。 include #include &lt;a.inc&gt; 或者#i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C程序的生命历程">
+<meta property="og:url" content="http://example.com/2022/11/07/base_computer_system/C%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%94%9F%E5%91%BD%E5%8E%86%E7%A8%8B/index.html">
+<meta property="og:site_name" content="LingWu&#39;s Blog">
+<meta property="og:description" content="C程序的生命历程 一个c语言程序从编译到可执行文件的生成经历了下面几个过程：  预编译 编译 汇编 链接  预编译 通俗而言，预编译就是处理c程序中含有#的语句，例如#include、#define、#if 等。使用命令gcc -E a.c -o a.i 对源文件a.c进行预编译操作，生成预处理文件。 include #include &lt;a.inc&gt; 或者#i">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-07T14:01:52.000Z">
+<meta property="article:modified_time" content="2022-11-08T03:39:12.714Z">
+<meta property="article:author" content="Ling Wu">
+<meta property="article:tag" content="dream">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/11/07/base_computer_system/C%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%94%9F%E5%91%BD%E5%8E%86%E7%A8%8B/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/11/07/base_computer_system/C%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%94%9F%E5%91%BD%E5%8E%86%E7%A8%8B/","path":"2022/11/07/base_computer_system/C程序的生命历程/","title":"C程序的生命历程"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>C程序的生命历程 | LingWu's Blog</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">LingWu's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#c%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%94%9F%E5%91%BD%E5%8E%86%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">C程序的生命历程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E7%BC%96%E8%AF%91"><span class="nav-number">1.1.</span> <span class="nav-text">预编译</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#include"><span class="nav-number">1.1.1.</span> <span class="nav-text">include</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91"><span class="nav-number">1.2.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B1%87%E7%BC%96"><span class="nav-number">1.3.</span> <span class="nav-text">汇编</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5"><span class="nav-number">1.4.</span> <span class="nav-text">链接</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ling Wu"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Ling Wu</p>
+  <div class="site-description" itemprop="description">梦里不知秋已深</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=610722&auto=1&height=66"></iframe>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/07/base_computer_system/C%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%94%9F%E5%91%BD%E5%8E%86%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Ling Wu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LingWu's Blog">
+      <meta itemprop="description" content="梦里不知秋已深">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="C程序的生命历程 | LingWu's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C程序的生命历程
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-11-07 22:01:52" itemprop="dateCreated datePublished" datetime="2022-11-07T22:01:52+08:00">2022-11-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-11-08 11:39:12" itemprop="dateModified" datetime="2022-11-08T11:39:12+08:00">2022-11-08</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="c程序的生命历程">C程序的生命历程</h1>
+<p>一个c语言程序从编译到可执行文件的生成经历了下面几个过程：</p>
+<ol type="1">
+<li><p>预编译</p></li>
+<li><p>编译</p></li>
+<li><p>汇编</p></li>
+<li><p>链接</p></li>
+</ol>
+<h2 id="预编译">预编译</h2>
+<p>通俗而言，预编译就是处理c程序中含有#的语句，例如#include、#define、#if
+等。使用命令<code>gcc -E a.c -o a.i</code>
+对源文件a.c进行预编译操作，生成预处理文件。</p>
+<h3 id="include">include</h3>
+<p>#include &lt;a.inc&gt; 或者#include
+"a.inc"语句会搜索尖括号或者双引号中的文件，并且将其内容直接复制粘贴到源文件中去。对于下面的例子，源代码a.c的输出结果是<code>Hello, world!</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件a.c</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">	<span class="meta">#<span class="keyword">include</span> <span class="string">&quot;a.inc&quot;</span></span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 文件a.inc</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;b.inc&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 文件b.inc</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;Hello, world!\n&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>源代码a.c经过预编译得到的a.i文件如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a.c</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;Hello, world!\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其原因是#include语句执行的是文件的复制和粘贴操作。</p>
+<p>那么，编译器是在什么地方找到尖括号或者双引号中的文件的呢？又或者编译器在什么地方找？通过查阅官方手册，我们可以使用<code>gcc --verbose a.c</code>来查看编译源文件a.c时编译器具体做了什么处理，这其中也包含了编译器应该在什么地方寻找尖括号或者双引号中的文件。一般而言，编译器会在当前路径去寻找双引号中的文件，而尖括号中的文件的寻找取决于操作系统的一些相关环境变量。</p>
+<p><img
+src="https://blog-images-1309437970.cos.ap-guangzhou.myqcloud.com/blog/image-20221022225642611.png" /></p>
+<p>那么我们可以添加想要路径到到尖括号中的寻找路径吗？答案是肯定的。我们可以通过<code>gcc -Ipath</code>（注意-I后面不能有空格，这个是历史遗留问题）将路径path添加到尖括号的寻找路径中。对于命令<code>gcc -I. a.c --verbose</code>，我们可以发现编译器将当前路径也就是.添加到了尖括号中的寻找路径。</p>
+<figure>
+<img
+src="https://blog-images-1309437970.cos.ap-guangzhou.myqcloud.com/blog/image-20221022230631735.png"
+alt="image-20221022230631735" />
+<figcaption aria-hidden="true">image-20221022230631735</figcaption>
+</figure>
+<h2 id="编译">编译</h2>
+<p>编译是将经过预编译的文件转换成汇编文件。可以通过命令<code>gcc -S a.c -o a.s</code>
+将源文件a.c转换成汇编文件a.s。或者通过<code>gcc -S a.i</code>将预编译文件a.i转换成汇编文件a.s。</p>
+<figure>
+<img
+src="https://blog-images-1309437970.cos.ap-guangzhou.myqcloud.com/blog/image-20221022231915752.png"
+alt="image-20221022231915752" />
+<figcaption aria-hidden="true">image-20221022231915752</figcaption>
+</figure>
+<h2 id="汇编">汇编</h2>
+<p>汇编是将汇编文件转换成二进制的机器语言。可以通过<code>gcc -c a.s</code>
+将汇编文件转换成可重定向的二进制文件a.o。或者通过<code>gcc -c a.c</code>将源文件编译并汇编成二进制文件a.o。我们可以通过命令<code>objdump -d a.o</code>对二进制文件或者可执行文件进行反汇编的操作。</p>
+<figure>
+<img
+src="https://blog-images-1309437970.cos.ap-guangzhou.myqcloud.com/blog/image-20221022232434353.png"
+alt="image-20221022232434353" />
+<figcaption aria-hidden="true">image-20221022232434353</figcaption>
+</figure>
+<h2 id="链接">链接</h2>
+<p>链接是将相互依赖的多个二进制文件合并的操作。可以通过<code>gcc a.o b.o -static</code>将二进制文件a.o和b.o合并成可执行的二进制文件。</p>
+<figure>
+<img
+src="https://blog-images-1309437970.cos.ap-guangzhou.myqcloud.com/blog/image-20221022234002401.png"
+alt="image-20221022234002401" />
+<figcaption aria-hidden="true">image-20221022234002401</figcaption>
+</figure>
+<figure>
+<img
+src="https://blog-images-1309437970.cos.ap-guangzhou.myqcloud.com/blog/image-20221022234136020.png"
+alt="image-20221022234136020" />
+<figcaption aria-hidden="true">image-20221022234136020</figcaption>
+</figure>
+<figure>
+<img
+src="https://blog-images-1309437970.cos.ap-guangzhou.myqcloud.com/blog/image-20221022234233219.png"
+alt="image-20221022234233219" />
+<figcaption aria-hidden="true">image-20221022234233219</figcaption>
+</figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/11/07/base_computer_system/ISA%E6%A6%82%E8%BF%B0/" rel="prev" title="ISA概述">
+                  <i class="fa fa-chevron-left"></i> ISA概述
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/11/07/discrete_mathematics/%E7%89%B9%E6%AE%8A%E7%9A%84%E5%9B%BE/" rel="next" title="特殊的图">
+                  特殊的图 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ling Wu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
